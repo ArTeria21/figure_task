@@ -7,14 +7,16 @@ class Figure(ABC):
 
     @abstractmethod
     def __init__(self, sides: list[int|float]) -> None:
-        curr_hash = hashlib.md5(str([self.__class__.__name__, sides]))
+        parametrs = f"{self.__class__.__name__} {sides}"
+        curr_hash = hashlib.md5(parametrs.encode()).hexdigest()
 
-        if curr_hash in self.hash_table.keys:
+        if curr_hash in list(self.hash_table.keys()):
             return self.hash_table[curr_hash]
 
         self.sides = sides
 
-        self.hash_table[hashlib.md5(str([self.__class__.__name__, self.sides]))] = self
+        parametrs = f"{self.__class__.__name__} {self.sides}"
+        self.hash_table[hashlib.md5(parametrs.encode()).hexdigest()] = self
 
 
     @property
