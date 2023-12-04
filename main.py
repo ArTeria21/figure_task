@@ -2,21 +2,22 @@ from abc import ABC, abstractmethod
 import hashlib
 
 class Figure(ABC):
-    hash_table: dict[str]
+    hash_table: dict
     amount_of_sides: int
 
     @abstractmethod
     def __init__(self, sides: list[int|float]) -> None:
-        parametrs = f"{self.__class__.__name__} {sides}"
-        curr_hash = hashlib.md5(parametrs.encode()).hexdigest()
+        sides.sort()
+        parameters = f"{self.__class__.__name__} {sides}"
+        curr_hash = hashlib.md5(parameters.encode()).hexdigest()
 
         if curr_hash in list(self.hash_table.keys()):
-            return self.hash_table[curr_hash]
+            self = self.hash_table[curr_hash]
 
         self.sides = sides
 
-        parametrs = f"{self.__class__.__name__} {self.sides}"
-        self.hash_table[hashlib.md5(parametrs.encode()).hexdigest()] = self
+        parameters = f"{self.__class__.__name__} {self.sides}"
+        self.hash_table[hashlib.md5(parameters.encode()).hexdigest()] = self
 
 
     @property
