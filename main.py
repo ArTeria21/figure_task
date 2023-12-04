@@ -11,7 +11,7 @@ class Figure(ABC):
 
         if curr_hash in self.hash_table.keys:
             return self.hash_table[curr_hash]
-            
+
         self.sides = sides
 
         self.hash_table[hashlib.md5(str([self.__class__.__name__, self.sides]))] = self
@@ -20,7 +20,7 @@ class Figure(ABC):
     @property
     def sides(self) -> list:
         return self.__sides
-    
+
     @sides.setter
     def sides(self, new_sides: list[int | float]) -> None:
         if not isinstance(new_sides, list):
@@ -36,7 +36,7 @@ class Figure(ABC):
 
     def get_perimeter(self):
         return sum(self.sides)
-    
+
     def get_area(self):
         pass
 
