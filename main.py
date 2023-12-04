@@ -1,12 +1,21 @@
 from abc import ABC, abstractmethod
+import hashlib
 
-class figure(ABC):
-    hash_table: dict[str:dict[str:int]]
+class Figure(ABC):
+    hash_table: dict[str]
     amount_of_sides: int
 
     @abstractmethod
     def __init__(self, sides: list[int|float]) -> None:
-        self.__sides = sides
+        curr_hash = hashlib.md5(str([self.__class__.__name__, sides]))
+
+        if curr_hash in self.hash_table.keys:
+            return self.hash_table[curr_hash]
+            
+        self.sides = sides
+
+        self.hash_table[hashlib.md5(str([self.__class__.__name__, self.sides]))] = self
+
 
     @property
     def sides(self) -> list:
