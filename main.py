@@ -30,3 +30,4 @@ class figure(ABC):
     
     def get_area(self):
         pass
+
